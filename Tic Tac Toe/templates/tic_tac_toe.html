@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>
+GAMES
+</title>
+<style>
+.heading {
+	color: magenta;
+}
+body{
+	background-color: gray;
+}
+#name{
+	font-style: bold;
+	font-size: 200%;
+}
+.player {
+	display: block;
+	height: 50px;
+	width: 50px;
+	background: magenta;
+	border-radius: 20px;
+	text-align: center;
+}
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="heading">
+<center>
+<p id="name">TIC TAC TOE</p>
+<h2> Choose </h2>
+</center>
+</div>
+<center>
+<div id="screenArea">
+<div class="player">
+<h3>X</h3>
+</div>
+<h2>OR</h2>
+<div class="player">
+<h3>O</h3>
+</div>
+</div>
+</center>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+$('.player').click(function() {
+	sel_player = $(this).text().trim();
+		$.ajax({
+			type: 'GET',
+			url: 'board',
+			data: {
+				player: sel_player
+			},
+			success: function(result){
+				$('#screenArea').html(result);
+			}
+		});
+});
+});
+
+$(document).on("click", 'td', function(event) { 
+    $.ajax({
+		type: 'GET',
+		url: 'play',
+		data: {
+			move: $(this).attr('id')
+		},
+		async: false,
+		success: function(result) {
+			$('#screenArea').html(result);
+			computer_play();
+		}
+	});
+});
+
+function computer_play() {
+    response_msg = $('h5').text().trim();
+	if(response_msg.length == 0){
+	$.ajax({
+		url: 'computer',
+		async: false,
+		success: function(result) {
+			$('#screenArea').html(result);
+		}
+	});
+	}
+}
+</script>
