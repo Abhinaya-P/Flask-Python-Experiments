@@ -132,6 +132,13 @@ def computer():
 				players_board[0] = "Match is a DRAW!"
 	return render_template("board.html",moves=players_board)
 	
-
+@app.route("/reset")
+def reset():
+	players_board[0] = ''
+	for i in range(1,10):
+		players_board[i] = '-'
+	chosen['match_over'] = False
+	return render_template("board.html",moves=players_board)
+	
 if __name__ == "__main__":
 	app.run(debug=True)

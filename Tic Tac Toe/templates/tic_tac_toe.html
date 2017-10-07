@@ -5,10 +5,10 @@ GAMES
 </title>
 <style>
 .heading {
-	color: magenta;
+	color: blue;
 }
 body{
-	background-color: gray;
+	background-color: #E8E8E8;
 }
 #name{
 	font-style: bold;
@@ -20,6 +20,30 @@ body{
 	width: 50px;
 	background: magenta;
 	border-radius: 20px;
+	color: yellow;
+}
+.game {
+	width: 50%;
+	height: 50%;
+	display: block;
+	background-color: pink;
+}
+
+table {
+	width: 100%;
+	height: 80%;
+}
+
+button {
+	margin-top: 30px;
+	width: 70px;
+	height: 40px;
+}
+
+td {
+	color: red;
+	font-size: 200%;
+	font-style: bold;
 	text-align: center;
 }
 </style>
@@ -29,11 +53,11 @@ body{
 <div class="heading">
 <center>
 <p id="name">TIC TAC TOE</p>
-<h2> Choose </h2>
 </center>
 </div>
 <center>
 <div id="screenArea">
+<h2> SELECT PLAYER!! </h2>
 <div class="player">
 <h3>X</h3>
 </div>
@@ -46,7 +70,25 @@ body{
 </body>
 </html>
 <script>
+function reset() {
+	jQuery.ajax({
+		url: 'reset',
+		success: function(result) {
+			$('#screenArea').html(result);
+		}
+	});
+}
 $(document).ready(function() {
+
+$('.player').mouseover(function(){
+ $(this).css({width: "80px",height: "80px"});
+});
+
+
+$('.player').mouseleave(function(){
+ $(this).css({width: "50px",height: "50px"});
+});
+
 $('.player').click(function() {
 	sel_player = $(this).text().trim();
 		$.ajax({
